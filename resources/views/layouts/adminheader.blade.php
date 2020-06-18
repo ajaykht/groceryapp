@@ -45,9 +45,9 @@
                     <!-- Main Menu -->
                     <div class="side-menu-container">
                         <ul class="nav navbar-nav">    
-                            <li class="active"><a href="{{ url('admin/dashboard') }}"><i class="material-icons">home</i> Dashboard</a></li>
-                            <li><a href="table.html"><i class="material-icons">table_chart</i> Table</a></li>
-                            <li><a href="form.html"><i class="material-icons">dynamic_form</i> Form</a></li>    
+                            <li class="{{ (request()->is('admin/dashboard')) ? 'active' : '' }}"><a href="{{ url('admin/dashboard') }}"><i class="material-icons">home</i> Dashboard</a></li>
+                            <li class="{{ (request()->is('admin/vendors')) ? 'active' : '' }}"><a href="{{ url('admin/vendors') }}"><i class="material-icons">table_chart</i> Manage Vendors </a></li>
+                            <li class="{{ (request()->is('admin/products')) ? 'active' : '' }}"><a href="{{ url('admin/products') }}"><i class="material-icons">dynamic_form</i> Manage Product </a></li>    
                             <!-- Dropdown-->
                             <li class="panel panel-default" id="dropdown">
                                 <a data-toggle="collapse" href="#dropdown-lvl1">

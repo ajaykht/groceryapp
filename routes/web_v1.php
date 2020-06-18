@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 // Dashboard
 Route::get('admin/dashboard', 'v1\DashboardController@index')->name('dashboard');
+Route::get('admin/vendors', 'v1\VendorsController@index')->name('vendors');
 
 // Mobile Routes
 Route::group(['prefix' => 'api/v1'], function () {
