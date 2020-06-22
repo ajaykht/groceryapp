@@ -23,7 +23,8 @@ Route::get('admin/dashboard', 'v1\DashboardController@index')->name('dashboard')
 Route::get('admin/vendors', 'v1\VendorsController@index')->name('vendors');
 
 // Mobile Routes
-Route::group(['prefix' => 'api/v1'], function () {
-    Route::get('/dashboard', 'v1\DashboardController@index');
-    Route::get('/vendors', 'v1\VendorsController@index')->name('vendors');
+Route::group(['prefix' => 'api/v1/'], function () {
+    Route::post('user/auth', 'v1\UserController@store');
+    Route::get('dashboard', 'v1\DashboardController@index');
+    Route::get('vendors', 'v1\VendorsController@index')->name('vendors');
 });
