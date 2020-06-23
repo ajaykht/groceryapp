@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\v1;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-
-use App\Vendors;
 use Illuminate\Http\Request;
 
-class VendorsController extends Controller
+class OtpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +13,7 @@ class VendorsController extends Controller
      */
     public function index()
     {
-        return view('admin/vendors');
+        //return view('admin/vendors');
     }
 
     /**
@@ -29,15 +26,22 @@ class VendorsController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Validation\Validator  $validator
+     * Crete user signup
+     * Check mobile validation 
+     * check mobile exist or not
+     * OTP Save
      */
-    public function store(Request $request)
+
+    public function store(Request $r)
     {
-        //
+         
     }
 
     /**
@@ -46,7 +50,7 @@ class VendorsController extends Controller
      * @param  \App\v1\Vendors  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function show(Vendors $vendors)
+    public function show(Request $request)
     {
         //
     }
@@ -57,7 +61,7 @@ class VendorsController extends Controller
      * @param  \App\v1\Vendors  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vendors $vendors)
+    public function edit(Request $request)
     {
         //
     }
@@ -69,7 +73,7 @@ class VendorsController extends Controller
      * @param  \App\v1\Vendors  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vendors $vendors)
+    public function update(Request $request)
     {
         //
     }
@@ -80,7 +84,7 @@ class VendorsController extends Controller
      * @param  \App\v1\Vendors  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vendors $vendors)
+    public function destroy(Request $request)
     {
         //
     }

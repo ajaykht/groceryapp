@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\v1;
-use App\Http\Controllers\Controller;
+
+namespace App\Http\Controllers;
 use App\User;
+use App\Otp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -28,6 +31,7 @@ class UserController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -36,26 +40,36 @@ class UserController extends Controller
      * @param  \Illuminate\Validation\Validator  $validator
      * Crete user signup
      * Check mobile validation 
+     * check mobile exist or not
+     * OTP Save
      */
 
-    public function store(Request $request)
+    public function store(Request $r)
     {
         //
-       // $user = new User();
-        $validator = Validator::make($request->all(), [
-            'mobile' => 'required|unique:users|max:10',
-        ]);
+        $user   = new User();
+        $post   =   $r->all();       
+        $validator =  Validator::make($r->all(),[
+            'mobile' => 'required|unique:users|min:10|max:10',      
+        ],
+        [ 
+            'mobile.required' => 'Mobile no must be required.',
+            'mobile.digit' => 'Mobile no must be at least 10 Digit.'
+        ]
+    );
 
-        if ($validator->fails()) {
-            return response()->json(['status'=>false,'code'=>201,'message'=>'1111.']);
-           // return redirect('post/create')
-                       // ->withErrors($validator)
-                       // ->withInput();
-        }
-        //return response()->json(['status'=>true,'code'=>200,'message'=>'Added Successfull.']);
-       // echo 22;
-    
-
+    if ($validator->fails()) {           
+        return response()->json(['status'=>false,'code'=>401,'message'=>'Mobile No. not valid']);
+    }    
+    $user['mobile'] =   $post['mobile'];
+    $user->save();
+    $otp   =    new Otp();
+    $otps  =    rand(5000,9999);
+    $otp['mobile'] =   $post['mobile'];
+    $otp['otp']    =   $otps;
+    $otp->save();
+    $dataArr    =   array('otp'=>$otps,'mobile'=> $post['mobile']);
+        return response()->json(['status'=>true,'code'=>200,'data'=>$dataArr,'message'=>'Added Successfull.']);       
     }
 
     /**

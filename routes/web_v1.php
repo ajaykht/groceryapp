@@ -19,12 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 // Dashboard
-Route::get('admin/dashboard', 'v1\DashboardController@index')->name('dashboard');
-Route::get('admin/vendors', 'v1\VendorsController@index')->name('vendors');
+Route::get('admin/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('admin/vendors', 'VendorsController@index')->name('vendors');
 
 // Mobile Routes
 Route::group(['prefix' => 'api/v1/'], function () {
-    Route::post('user/auth', 'v1\UserController@store');
-    Route::get('dashboard', 'v1\DashboardController@index');
-    Route::get('vendors', 'v1\VendorsController@index')->name('vendors');
+    Route::post('user/auth', 'UserController@store');
+    Route::get('dashboard', 'DashboardController@index');
+    Route::get('vendors', 'VendorsController@index')->name('vendors');
 });
