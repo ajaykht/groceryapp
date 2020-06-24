@@ -131,14 +131,14 @@ class UserController extends Controller
         //
         $user   = new User();
         $post   =   $r->all();               
-        $chkUser =  User::where(array( 'email'=> $r->email ))->get();
+        $chkUser =  User::where(array( 'email'=> $post['email'] ))->get();
         if(count($chkUser)>0) {
             $user['mobile'] =   $post['mobile'];
             $user['name']   =   $post['name'];
             $user['email']  =   $post['email'];
             $user['loginBy']  =   '1';
             $user->save();
-            $dataArr = $chkUser;
+            $dataArr = User::where('id', $user->id)->get();
             return response()->json(['status'=>true,'code'=>200,'data'=>$dataArr]); 
         } else {   
             $dataArr = $chkUser;

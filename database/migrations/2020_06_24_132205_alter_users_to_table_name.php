@@ -14,7 +14,7 @@ class AlterUsersToTableName extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('loginBy')->nullable();
+            $table->enum('loginBy',['1','0'])->after('remember_token')->nullable()->default(0);
         });
     }
 
