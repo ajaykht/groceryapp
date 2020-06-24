@@ -25,6 +25,8 @@ Route::get('admin/vendors', 'VendorsController@index')->name('vendors');
 // Mobile Routes
 Route::group(['prefix' => 'api/v1/'], function () {
     Route::post('user/auth', 'UserController@store');
+    Route::post('user/otp', 'OtpController@checkOtp');
+    Route::post('user/signupBygoogle', 'UserController@loginByGoogle');
     Route::get('dashboard', 'DashboardController@index');
     Route::get('vendors', 'VendorsController@index')->name('vendors');
 });

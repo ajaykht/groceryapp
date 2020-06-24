@@ -53,13 +53,12 @@ class UserController extends Controller
             'mobile' => 'required|unique:users|min:10|max:10',      
         ],
         [ 
-            'mobile.required' => 'Mobile no must be required.',
-            'mobile.digit' => 'Mobile no must be at least 10 Digit.'
+            'mobile.required' => 'already registered.',
         ]
     );
 
     if ($validator->fails()) {           
-        return response()->json(['status'=>false,'code'=>401,'message'=>'Mobile No. not valid']);
+        return response()->json(['status'=>false,'code'=>401,'message'=> 'Already Taken' ]);
     }    
     $user['mobile'] =   $post['mobile'];
     $user->save();
@@ -116,4 +115,35 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Validation\Validator  $validator
+     * Crete user signup
+     * Check mobile validation      
+     */
+
+    public function loginByGoogle(Request $r)
+    {
+        //
+        $user   = new User();
+        $post   =   $r->all();               
+        $chkUser =  User::where(array( 'email'=> $r->email ))->get();
+        if(count($chkUser)>0) {
+            $user['mobile'] =   $post['mobile'];
+            $user['name']   =   $post['name'];
+            $user['email']  =   $post['email'];
+            $user['loginBy']  =   '1';
+            $user->save();
+            $dataArr = $chkUser;
+            return response()->json(['status'=>true,'code'=>200,'data'=>$dataArr]); 
+        } else {   
+            $dataArr = $chkUser;
+            return response()->json(['status'=>true,'code'=>200,'data'=>$dataArr]);       
+        }
+    }
+
 }

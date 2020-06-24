@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Otp;
+use App\User;
 use Illuminate\Http\Request;
 
 class OtpController extends Controller
@@ -13,7 +14,7 @@ class OtpController extends Controller
      */
     public function index()
     {
-        //return view('admin/vendors');
+       
     }
 
     /**
@@ -53,6 +54,7 @@ class OtpController extends Controller
     public function show(Request $request)
     {
         //
+
     }
 
     /**
@@ -84,8 +86,29 @@ class OtpController extends Controller
      * @param  \App\v1\Vendors  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($mobile)
     {
-        //
+        //print_r($mobile); die;
+        Otp::where('mobile', $mobile)->delete();
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\v1\Vendors  $vendors
+     * @return \Illuminate\Http\Response
+     * check OTP 
+     * Destroy OTP
+     */
+    public function checkOtp(Request $r) {
+     $chkOtp =  Otp::where(array( 'mobile'=> $r->mobile,'otp'=>$r->otp ))->get();
+        if(count($chkOtp)>0) {
+            $dataArr = User::where('mobile',$r->mobile)->get();
+            $this->destroy($r->mobile);
+            return response()->json(['status'=>true,'code'=>200,'data'=>$dataArr]);
+        } else {
+            return response()->json(['status'=>false,'code'=>401,'message'=>"OTP Not valid"]);
+        }
+    }
+
 }
