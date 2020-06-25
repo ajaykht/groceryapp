@@ -42,7 +42,15 @@ class OtpController extends Controller
 
     public function store(Request $r)
     {
-         
+       
+        $post  =   $r->all();
+        $otp   =    new Otp();
+        $otps  =    rand(5000,9999);
+        $otp['mobile'] =   $post['mobile'];
+        $otp['otp']    =   $otps;
+        $otp->save();
+        $dataArr       =   array('otp'=>$otps,'mobile'=> $post['mobile']);        
+        return response()->json(['status'=>true,'code'=>200,'data'=>$dataArr]);
     }
 
     /**
@@ -53,7 +61,8 @@ class OtpController extends Controller
      */
     public function show(Request $request)
     {
-        //
+        
+       
 
     }
 
