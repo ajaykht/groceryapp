@@ -26,7 +26,10 @@ Route::get('admin/vendors', 'VendorsController@index')->name('vendors');
 Route::group(['prefix' => 'api/v1/'], function () {
     Route::post('user/auth', 'UserController@store');
     Route::post('user/otp', 'OtpController@checkOtp');
+    Route::post('user/re-otp', 'OtpController@store');
     Route::post('user/signupBygoogle', 'UserController@loginByGoogle');
+    Route::get('city', 'CityController@index');
+    Route::get('area/{id}', 'AreaController@show');
     Route::get('dashboard', 'DashboardController@index');
     Route::get('vendors', 'VendorsController@index')->name('vendors');
 });

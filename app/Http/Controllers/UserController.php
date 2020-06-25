@@ -122,8 +122,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @param  \Illuminate\Validation\Validator  $validator
-     * Crete user signup
-     * Check mobile validation      
+     * Create user signup  by google   
      */
 
     public function loginByGoogle(Request $r)
@@ -132,7 +131,8 @@ class UserController extends Controller
         $user   = new User();
         $post   =   $r->all();               
         $chkUser =  User::where(array( 'email'=> $post['email'] ))->get();
-        if(count($chkUser)>0) {
+        //print_r(count( $chkUser)) ; die;
+        if(count($chkUser)==0) {           
             $user['mobile'] =   $post['mobile'];
             $user['name']   =   $post['name'];
             $user['email']  =   $post['email'];
